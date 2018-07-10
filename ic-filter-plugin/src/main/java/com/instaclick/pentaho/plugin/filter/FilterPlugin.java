@@ -68,6 +68,18 @@ public class FilterPlugin extends BaseStep implements StepInterface
 
             flushFilter();
         }
+
+        @Override
+        public void transActive(Trans arg0) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void transStarted(Trans arg0) {
+            // TODO Auto-generated method stub
+
+        }
     };
 
     /**

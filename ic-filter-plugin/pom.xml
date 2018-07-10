@@ -12,14 +12,26 @@
         <project.plugin.deploy>${project.build.directory}/plugin/ic-filter-plugin</project.plugin.deploy>
         <project.plugin.deploylib>${project.build.directory}/plugin/ic-filter-plugin/lib</project.plugin.deploylib>
         <hadoop.version>2.0.0-cdh4.1.1</hadoop.version>
-        <kettle.version>4.1.4-SNAPSHOT</kettle.version>
+        <kettle.version>9.0.0.0-SNAPSHOT</kettle.version>
         <guava.version>14.0.1</guava.version>
         <commons-configuration.version>1.6</commons-configuration.version>
-        <commons-vfs.version>2.0-20090205</commons-vfs.version>
-        <ic-filter.version>1.8.0-SNAPSHOT</ic-filter.version>
+        <commons-vfs2.version>2.2</commons-vfs2.version>
+        <skipTests>true</skipTests>
+
+        <ic-filter.version>2.0.0-SNAPSHOT</ic-filter.version>
         <skipTests>false</skipTests>
         <pluginInstallDir>/Applications/pentaho/pdi/design-tools/data-integration/plugins/steps/ic-filter-plugin</pluginInstallDir>
     </properties>
+     <parent>
+    <groupId>pentaho-kettle</groupId>
+    <artifactId>kettle-sdk-plugin-parent</artifactId>
+    <version>9.0.0.0-SNAPSHOT</version>
+  </parent>
+
+   <scm>
+    <developerConnection>scm:git:git@github.com:pentaho/${project.artifactId}.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -38,40 +50,35 @@
             <version>${guava.version}</version>
         </dependency>
         <dependency>
-            <groupId>commons-vfs</groupId>
-            <artifactId>commons-vfs</artifactId>
-            <version>${commons-vfs.version}</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-vfs2</artifactId>
+            <version>${commons-vfs2.version}</version>
         </dependency>
         <dependency>
-            <groupId>pentaho.kettle</groupId>
+            <groupId>pentaho-kettle</groupId>
             <artifactId>kettle-core</artifactId>
             <version>${kettle.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>pentaho.kettle</groupId>
+            <groupId>pentaho-kettle</groupId>
             <artifactId>kettle-engine</artifactId>
             <version>${kettle.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>pentaho.kettle</groupId>
+            <groupId>pentaho-kettle</groupId>
             <artifactId>kettle-ui-swt</artifactId>
             <version>${kettle.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>pentaho.kettle</groupId>
+            <groupId>pentaho-kettle</groupId>
             <artifactId>kettle-db</artifactId>
-            <version>${kettle.version}</version>
+            <version>4.4.3.4</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.eclipse.swt.win32.win32</groupId>
-            <artifactId>x86</artifactId>
-            <version>3.3.0-v3346</version>
-            <scope>provided</scope>
-        </dependency>
+
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-client</artifactId>
@@ -99,46 +106,20 @@
         </dependency>
     </dependencies>
     <repositories>
-        <repository>
-            <id>repo.local</id>
-            <name>repo-local</name>
-            <url>file:${project.basedir}/../ic-filter/repo</url>
-        </repository>
-        <repository>
-            <id>repository.pentaho.org</id>
-            <name>repository.pentaho.org</name>
-            <url>http://repository.pentaho.org/artifactory/pentaho</url>
-        </repository>
-        <repository>
-            <id>thirdparty.repository.pentaho.org</id>
-            <name>thirdparty.pentaho.org</name>
-            <url>http://repository.pentaho.org/artifactory/third-party</url>
-        </repository>
-        <repository>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <id>central</id>
-            <name>cdh-build</name>
-            <url>https://repository.cloudera.com/artifactory/cdh-build</url>
-        </repository>
-        <repository>
-            <snapshots />
-            <id>snapshots</id>
-            <name>libs-snapshot</name>
-            <url>https://repository.cloudera.com/artifactory/libs-snapshot</url>
-        </repository>
-        <repository>
-            <id>mvnrepository</id>
-            <url>http://repo1.maven.org/maven2</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-    </repositories>
+    <repository>
+      <id>pentaho-public</id>
+      <name>Pentaho Public</name>
+      <url>http://nexus.pentaho.org/content/groups/omni/</url>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>daily</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>interval:15</updatePolicy>
+      </snapshots>
+    </repository>
+  </repositories>
     <build>
         <testResources>
             <testResource>
@@ -213,9 +194,7 @@
                                 <copy tofile="${project.plugin.deploylib}/commons-configuration.jar">
                                     <fileset refid="commons-configuration:commons-configuration:jar" />
                                 </copy>
-                                <copy tofile="${project.plugin.deploylib}/commons-vfs.jar">
-                                    <fileset refid="commons-vfs:commons-vfs:jar" />
-                                </copy>
+
                                 <copy todir="${project.plugin.deploy}">
                                     <fileset dir="${basedir}/src/main/resources">
                                         <include name="**/*.*" />
