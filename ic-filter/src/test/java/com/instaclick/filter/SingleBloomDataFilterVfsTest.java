@@ -3,9 +3,9 @@ package com.instaclick.filter;
 import com.google.common.hash.Hashing;
 import com.instaclick.filter.provider.FilterProvider;
 import com.instaclick.filter.provider.VfsFilterProvider;
-import org.apache.commons.vfs.FileObject;
-import org.apache.commons.vfs.FileSystemException;
-import org.apache.commons.vfs.VFS;
+import org.apache.commons.vfs2.FileObject;
+import org.apache.commons.vfs2.FileSystemException;
+import org.apache.commons.vfs2.VFS;
 import org.junit.Before;
 import org.pentaho.di.core.exception.KettleFileException;
 

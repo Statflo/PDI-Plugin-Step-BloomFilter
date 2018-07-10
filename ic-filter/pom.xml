@@ -3,17 +3,28 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.instaclick</groupId>
     <artifactId>ic-filter</artifactId>
-    <version>1.8.0-SNAPSHOT</version>
+    <version>2.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>ic-filter</name>
+ <parent>
+    <groupId>pentaho-kettle</groupId>
+    <artifactId>kettle-sdk-plugin-parent</artifactId>
+    <version>9.0.0.0-SNAPSHOT</version>
+  </parent>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <commons-vfs.version>2.0-20090205</commons-vfs.version>
+    <commons-vfs2.version>2.2</commons-vfs2.version>
+
+        <commons-vfs.version>2.2</commons-vfs.version>
         <hadoop.version>2.0.0-cdh4.1.1</hadoop.version>
-        <kettle.version>4.1.4-SNAPSHOT</kettle.version>
+        <kettle.version>8.0.1-SNAPSHOT</kettle.version>
         <guava.version>14.0.1</guava.version>
         <skipTests>false</skipTests>
     </properties>
+ <scm>
+    <developerConnection>scm:git:git@github.com:pentaho/${project.artifactId}.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -26,17 +37,43 @@
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
         </dependency>
-        <dependency>
-            <groupId>commons-vfs</groupId>
-            <artifactId>commons-vfs</artifactId>
-            <version>${commons-vfs.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>pentaho.kettle</groupId>
-            <artifactId>kettle-core</artifactId>
-            <version>${kettle.version}</version>
-            <scope>provided</scope>
-        </dependency>
+<dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-vfs2</artifactId>
+      <version>${commons-vfs2.version}</version>
+      <scope>compile</scope>
+    </dependency>
+ <dependency>
+      <groupId>org.pentaho</groupId>
+      <artifactId>pentaho-metadata</artifactId>
+      <version>${pentaho-metadata.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>pentaho-kettle</groupId>
+      <artifactId>kettle-core</artifactId>
+      <version>${pdi.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>pentaho-kettle</groupId>
+      <artifactId>kettle-engine</artifactId>
+      <version>${pdi.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>pentaho-kettle</groupId>
+      <artifactId>kettle-ui-swt</artifactId>
+      <version>${pdi.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>pentaho-kettle</groupId>
+      <artifactId>kettle-engine</artifactId>
+      <version>${pdi.version}</version>
+      <classifier>tests</classifier>
+      <scope>test</scope>
+    </dependency>
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-client</artifactId>
@@ -53,47 +90,6 @@
             <version>${hadoop.version}</version>
         </dependency>
     </dependencies>
-    <repositories>
-        <repository>
-            <id>repo.local</id>
-            <name>repo-local</name>
-            <url>file:${project.basedir}/repo</url>
-        </repository>
-        <repository>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <id>central</id>
-            <name>cdh-build</name>
-            <url>https://repository.cloudera.com/artifactory/cdh-build</url>
-        </repository>
-        <repository>
-            <snapshots />
-            <id>snapshots</id>
-            <name>libs-snapshot</name>
-            <url>https://repository.cloudera.com/artifactory/libs-snapshot</url>
-        </repository>
-        <repository>
-            <id>mvnrepository</id>
-            <url>http://repo1.maven.org/maven2</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-        <repository>
-            <id>repository.pentaho.org</id>
-            <name>repository.pentaho.org</name>
-            <url>http://repository.pentaho.org/artifactory/pentaho</url>
-        </repository>
-        <repository>
-            <id>thirdparty.repository.pentaho.org</id>
-            <name>thirdparty.pentaho.org</name>
-            <url>http://repository.pentaho.org/artifactory/third-party</url>
-        </repository>
-    </repositories>
     <build>
         <testResources>
             <testResource>
@@ -112,4 +108,19 @@
             </plugin>
         </plugins>
     </build>
+<repositories>
+    <repository>
+      <id>pentaho-public</id>
+      <name>Pentaho Public</name>
+      <url>http://nexus.pentaho.org/content/groups/omni/</url>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>daily</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>interval:15</updatePolicy>
+      </snapshots>
+    </repository>
+  </repositories>
 </project>
