@@ -17,7 +17,7 @@
         <hadoop.version>2.0.0-cdh4.1.1</hadoop.version>
         <kettle.version>8.0.1-SNAPSHOT</kettle.version>
         <guava.version>14.0.1</guava.version>
-        <skipTests>true</skipTests>
+
     </properties>
  <scm>
     <developerConnection>scm:git:git@github.com:pentaho/${project.artifactId}.git</developerConnection>
@@ -94,17 +94,6 @@
                 <directory>${project.basedir}/src/test/java</directory>
             </testResource>
         </testResources>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.15</version>
-                <configuration>
-                    <argLine>-Xmx1024m</argLine>
-                    <skipTests>${skipTests}</skipTests>
-                </configuration>
-            </plugin>
-        </plugins>
     </build>
 <repositories>
     <repository>
